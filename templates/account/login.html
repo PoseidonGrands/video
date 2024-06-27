@@ -1,0 +1,27 @@
+{% extends 'common/base.html' %}
+{% block main %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="jumbotron">
+                <h1 class="display-4">会员登录</h1>
+                <div class="login_wrap">
+                    <div class="form-group">
+                        <label for="login_user">用户名</label>
+                        <input type="email" class="form-control" id="login_user" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="login_pwd">密码</label>
+                        <input type="password" class="form-control" id="login_pwd">
+                    </div>
+                    <button type="submit" class="btn btn-primary do-login">确认</button>
+                </div>
+                {{ error }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    {% load static %}
+	<script src="{% static '/account/js/login.js' %}"></script>
+{% endblock %}

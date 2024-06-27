@@ -79,7 +79,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_video',
-        'USERNAME': 'root',
+        'USER': 'root',
         'PASSWORD': '2280139492',
         'HOST': 'localhost',
         'PORT': '3306'

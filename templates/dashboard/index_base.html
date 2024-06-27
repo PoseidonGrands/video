@@ -1,0 +1,23 @@
+{% extends 'common/base.html' %}
+
+{% block css %}
+    {% load static %}
+    <link lang="less" rel="stylesheet" href="{% static 'dashboard/css/index.css' %}">
+{% endblock %}
+
+{% block main %}
+    <div class="page-dashboard">
+        <div class="nav-top">
+            {% include 'common/nav.html' %}
+        </div>
+        <div class="dashboard-box">
+                <div class="nav-left">
+                    {% include 'dashboard/left_nav.html' %}
+                </div>
+                <div class="main">
+                    
+                </div>
+        </div>
+    </div>
+{% endblock %}
+

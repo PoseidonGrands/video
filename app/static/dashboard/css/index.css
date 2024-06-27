@@ -1,0 +1,44 @@
+/* 确保HTML和Body的高度填充整个视口 */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100%; /* 使用min-height以适应所有浏览器 */
+}
+
+/* 页面容器使用Flexbox布局 */
+.page-dashboard {
+    display: flex;
+    flex-direction: column; /* 子元素垂直排列 */
+    height: 100%;
+}
+
+
+/* 容器使用Flexbox布局并占满剩余空间 */
+.dashboard-box {
+    display: flex;
+    flex: 1;
+
+    /* 左侧导航栏 */
+    .nav-left {
+        display: flex;
+        /*flex: 0 0 16%; !* 不伸缩，占据固定比例的空间 *!*/
+
+        flex-direction: column; /* 如果需要，垂直排列子元素 */
+        height: 100%;
+        width: 200px;
+    }
+
+    /* 主要内容区域 */
+    .main {
+        display: flex;
+        flex: 1;
+
+        width: 100%;
+        border-left: 1px solid #cccccc;
+        background-color: #0c5460;
+    }
+}
+
+
