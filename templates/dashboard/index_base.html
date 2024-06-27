@@ -15,9 +15,16 @@
                     {% include 'dashboard/left_nav.html' %}
                 </div>
                 <div class="main">
-                    
+                    {% block main_content %}
+                        <h1>首页</h1>
+                    {% endblock %}
                 </div>
         </div>
     </div>
+{% endblock %}
+
+{% block js %}
+    {% load static %}
+    <script src="{% static 'dashboard/js/controller.js' %}"></script>
 {% endblock %}
 
