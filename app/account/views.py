@@ -11,6 +11,7 @@ def login(request):
     if request.method == 'POST':
         # print('username:', request.POST.get('loginName'))
         # print('password:', request.POST.get('loginPwd'))
+        #
 
         username = request.POST.get('loginName')
         password = request.POST.get('loginPwd')
