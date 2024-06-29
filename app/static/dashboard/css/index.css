@@ -33,11 +33,14 @@ html, body {
     /* 主要内容区域 */
     .main {
         display: flex;
+        flex-direction: column;
         flex: 1;
 
         width: 100%;
+        padding: 10px;
+
         border-left: 1px solid #cccccc;
-        background-color: #0c5460;
+        background-color: #fff3cd;
     }
 }
 

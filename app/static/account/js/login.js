@@ -19,12 +19,17 @@ var account_login_ops = {
 
             // 禁用点击，防止重复提交
             loginBtn.addClass('disabled');
+
+            // 获取需要跳转的url
+            let to_url = $('.to_url').text();
+
             $.ajax({
                 url: 'http://localhost:8001/account/login',
                 type: 'POST',
                 data: {
                     loginName: loginName,
-                    loginPwd: loginPwd
+                    loginPwd: loginPwd,
+                    toUrl: to_url
                 },
                 dataType: 'json',
                 success: function (res){
@@ -40,5 +45,6 @@ var account_login_ops = {
 }
 
 $(document).ready(function (){
+    console.log('ready')
     account_login_ops.init()
 })

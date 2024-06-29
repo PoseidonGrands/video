@@ -12,7 +12,7 @@ let dashboard_ops = {
     },
     eventBind: function (){
         // 点击左上角跳转回首页
-        $(".page-dashboard .nav-top").click(function (){
+        $(".page-dashboard .nav-top .navbar-brand").click(function (){
             localStorage.setItem('activeNavIndex', null);
             window.location.href = host + '/dashboard/index'
         })

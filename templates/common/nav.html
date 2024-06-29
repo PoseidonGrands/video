@@ -6,9 +6,9 @@
 
     <div class="collapse navbar-collapse justify-content-end">
         <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-              User
-            </a>
+            <span class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+              {{ request.user }}
+            </span>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="{% url 'logout' %}">logout</a>
             </div>

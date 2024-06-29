@@ -1,5 +1,47 @@
 {% extends 'dashboard/index_base.html' %}
 
+{% block css %}
+    {{ block.super }}
+    {% load static %}
+    <link lang="less" rel="stylesheet" href="{% static '/dashboard/css/manage_admin.css' %}">
+{% endblock %}
+
+
+
 {% block main_content %}
     <h1>管理员页面</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>用户名</th>
+                <th>状态</th>
+                <th>创建时间</th>
+                <th>编辑权限</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in page %}
+                <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.is_superuser }}</td>
+                        <td>{{ user.date_joined }}</td>
+                        {% if user.is_superuser %}
+    {#                        <td><a href="{% url 'update_user_status' args='off' %}">取消管理员</a></td>#}
+                            <td><a href="{% url 'update_user_status' status='0' username=user.username %}">取消管理员</a></td>
+                        {% else %}
+                            <td><a href="{% url 'update_user_status' status='1' username=user.username %}">升级管理员</a></td>
+                        {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="page_jump">
+        {% if page_index > 1 %}
+            <a href="{% url 'dashboard_admin' page_opt='prev' page_index=page_index %}">上一页</a>
+        {% endif %}
+        {% if page_index < total_page %}
+            <a href="{% url 'dashboard_admin' page_opt='next' page_index=page_index %}">下一页</a>
+        {% endif %}
+
+    </div>
 {% endblock %}
