@@ -5,7 +5,7 @@ let dashboard_ops = {
         this.eventBind()
         // 获取存储的navIndex
         active_index = localStorage.getItem('activeNavIndex');
-        // 跳转到首页时该值为空
+        // 跳转到首页时该值为空，不会设置active
         if (localStorage.getItem('activeNavIndex') !== null) {
             $(".nav-left .list-group a").eq(active_index).addClass('active')
         }
@@ -17,6 +17,7 @@ let dashboard_ops = {
             window.location.href = host + '/dashboard/index'
         })
 
+        // 设置导航栏每个item的高亮状态
         $(".nav-left .list-group a:eq(0)").click(function (){
             localStorage.setItem('activeNavIndex', 0);
             window.location.href = host + '/dashboard/manage/admin';
@@ -32,7 +33,6 @@ let dashboard_ops = {
             window.location.href = host + '/dashboard/manage/video';
         })
     }
-
 }
 
 

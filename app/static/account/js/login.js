@@ -12,7 +12,6 @@ var account_login_ops = {
             }
             let loginName = $(".login_wrap input[id='login_user']").val();
             let loginPwd = $(".login_wrap input[id='login_pwd']").val();
-            // console.log(typeof(loginPwd), loginPwd.length)
             if(loginName.length < 3 || loginPwd.length < 3){
                 console.log('无效字段值');
             }

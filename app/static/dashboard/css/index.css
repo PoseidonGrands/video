@@ -1,3 +1,5 @@
+/* 使用flex布局容器内的元素要参与flex布局也要设置成flex元素 */
+
 /* 确保HTML和Body的高度填充整个视口 */
 html, body {
     margin: 0;
@@ -23,7 +25,6 @@ html, body {
     /* 左侧导航栏 */
     .nav-left {
         display: flex;
-        /*flex: 0 0 16%; !* 不伸缩，占据固定比例的空间 *!*/
 
         flex-direction: column; /* 如果需要，垂直排列子元素 */
         height: 100%;

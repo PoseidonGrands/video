@@ -33,7 +33,7 @@ def admin_manager(request,  page_index=None, page_opt=None):
     else:
         page_index = int(index)
 
-    print('当前页码', page_index)
+    # print('当前页码', page_index)
 
     # 取出全部用户
     users = User.objects.all()
@@ -52,7 +52,6 @@ def admin_manager(request,  page_index=None, page_opt=None):
                     'total_page': total_page,
                     'page_index': int(page_index)
                     })
-
 
 
 # @login_required(login_url='/account/login?error=you need to login')

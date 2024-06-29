@@ -6,10 +6,12 @@
 
     <div class="collapse navbar-collapse justify-content-end">
         <div class="nav-item dropdown">
+{#            登录用户名#}
             <span class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
               {{ request.user }}
             </span>
             <div class="dropdown-menu">
+{#                退出登录#}
               <a class="dropdown-item" href="{% url 'logout' %}">logout</a>
             </div>
         </div>
