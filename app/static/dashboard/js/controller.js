@@ -1,6 +1,6 @@
 let host = 'http://localhost:8001'
 
-let dashboard_ops = {
+let dashboardOps = {
     init: function (){
         this.eventBind()
         // 获取存储的navIndex
@@ -28,15 +28,19 @@ let dashboard_ops = {
             window.location.href = host + '/dashboard/manage/user';
         })
 
-        $(".nav-left .list-group a:eq(2)").click(function (){
+        $(".nav-left .list-group .dropdown-menu a:eq(0)").click(function (){
             localStorage.setItem('activeNavIndex', 2);
-            window.location.href = host + '/dashboard/manage/video';
+            window.location.href = host + '/dashboard/manage/video_external';
+        })
+
+        $(".nav-left .list-group .dropdown-menu a:eq(1)").click(function (){
+            localStorage.setItem('activeNavIndex', 3);
+            window.location.href = host + '/dashboard/manage/video_custom';
         })
     }
 }
 
 
-
 $(document).ready(function (){
-    dashboard_ops.init()
+    dashboardOps.init()
 })

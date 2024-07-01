@@ -1,0 +1,29 @@
+.video_container{
+
+    .video_main{
+        display: none;
+
+        width: 350px;
+        height: 370px;
+        margin-top: 20px;
+        padding: 10px;
+
+        text-align: left;
+        border: 1px solid #cccccc;
+        border-radius: 6px;
+        p{
+            position: relative;
+            margin: 8px 0;
+        }
+
+        .video_info_label{
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .video_info{
+            margin-left: 38px;
+        }
+    }
+}

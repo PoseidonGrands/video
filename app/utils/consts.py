@@ -11,6 +11,11 @@ class VideoType(Enum):
     def label(self):
         return self.value[1]
 
+    @property
+    def name(self):
+        return self.value[0]
+
+
 
 class FromType(Enum):
     youku = ('youku', '优酷')
@@ -20,6 +25,10 @@ class FromType(Enum):
     @property
     def label(self):
         return self.value[1]
+
+    @property
+    def name(self):
+        return self.value[0]
 
 
 class NationalityType(Enum):
@@ -32,3 +41,7 @@ class NationalityType(Enum):
     @property
     def label(self):
         return self.value[1]
+
+    @property
+    def name(self):
+        return self.value[0]

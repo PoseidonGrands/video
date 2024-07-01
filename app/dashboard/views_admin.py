@@ -45,7 +45,7 @@ def admin_manager(request,  page_index=None, page_opt=None):
     total_items = page.paginator.count
     total_page = page.paginator.num_pages
 
-    return render(request, 'dashboard/manager_admin.html',
+    return render(request, 'dashboard/admin.html',
           {
                     'page': page,
                     'total_items': total_items,
@@ -57,13 +57,13 @@ def admin_manager(request,  page_index=None, page_opt=None):
 # @login_required(login_url='/account/login?error=you need to login')
 @dashboard_auth
 def admin_user(request):
-    return render(request, 'dashboard/manager_user.html')
+    return render(request, 'dashboard/user.html')
 
 
-# @login_required(login_url='/account/login?error=you need to login')
-@dashboard_auth
-def admin_video(request):
-    return render(request, 'dashboard/manager_video.html')
+# # @login_required(login_url='/account/login?error=you need to login')
+# @dashboard_auth
+# def admin_video(request):
+#     return render(request, 'dashboard/manager_video.html')
 
 
 
