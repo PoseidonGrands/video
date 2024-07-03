@@ -60,10 +60,4 @@ def admin_user(request):
     return render(request, 'dashboard/user.html')
 
 
-# # @login_required(login_url='/account/login?error=you need to login')
-# @dashboard_auth
-# def admin_video(request):
-#     return render(request, 'dashboard/manager_video.html')
-
-
 

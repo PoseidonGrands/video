@@ -1,6 +1,6 @@
 .video_container{
 
-    .video_main{
+    .video_edit_main{
         display: none;
 
         width: 350px;
@@ -24,6 +24,23 @@
 
         .video_info{
             margin-left: 38px;
+        }
+    }
+
+    .video_info_show_main{
+        margin-top: 20px;
+
+        text-align: center;
+
+        .video-img{
+            width: 100px;
+        }
+
+        .video-info{
+            width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
 }

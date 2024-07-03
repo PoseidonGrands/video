@@ -6,7 +6,7 @@ let ops = {
     },
     eventBind: function () {
         $('.video_container .add_video').click(function (){
-            let video_main = $('.video_container .video_main')
+            let video_main = $('.video_container .video_edit_main')
             if(addVideoAreaShow){
                 video_main.hide()
                 addVideoAreaShow = false
@@ -15,13 +15,13 @@ let ops = {
                 addVideoAreaShow = true
             }
         }),
-        $('.video_container .video_main .submit').click(function (){
-            let name = $('.video_main input[id="videoNameInput"]').val()
-            let info = $('.video_main textarea[id="videoInfoInput"]').val()
-            let image = $('.video_main input[id="videoImageInput"]').val()
-            let videoType = $('.video_main #video_type').val()
-            let from = $('.video_main #video_from').val()
-            let nationality = $('.video_main #nationality_type').val()
+        $('.video_container .video_edit_main .submit').click(function (){
+            let name = $('#videoNameInput').val()
+            let info = $('#videoInfoInput').val()
+            let image = $('#videoImageInput').val()
+            let videoType = $('#video_type').val()
+            let from = $('#video_from').val()
+            let nationality = $('#nationality_type').val()
             console.log(name, info, image, videoType, from, nationality)
 
             $.ajax({

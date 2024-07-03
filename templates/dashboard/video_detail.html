@@ -1,0 +1,57 @@
+{% extends 'dashboard/index_base.html' %}
+
+{% load static %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" lang="less" href="{% static 'dashboard/css/video_detail.css' %}">
+{% endblock %}
+
+{% block main_content %}
+	<h1>{{ video.name }}</h1>
+    <div class="video-detail-container">
+        <span class='video-id' style="display:none">{{ video.id }}</span>
+        {#    集数#}
+        <div class="detail_episode">
+            <h3>集数</h3>
+            <p><label for="video-url">视频地址：</label><input type="text" id="video-url"></p>
+            <p><button type='button' class="btn btn-primary submit">add</button></p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>集数</th>
+                        <th>地址</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for sub in page %}
+                	<tr>
+                        <td><p class="episode-number">{{ sub.number }}</td>
+                        <td><p class="episode-url">{{ sub.url }}</p></td>
+                        <td><p class="episode-opt"><a href="{{ sub.url }}">查看</a></p></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="page_jump">
+                {% if current_page > 1 %}
+                    <a href="{% url 'video_detail' video_id=video_id current_page=current_page page_opt='prev' %}">上一页</a>
+                {% endif %}
+                {% if current_page < total_page %}
+                	<a href="{% url 'video_detail' video_id=video_id current_page=current_page page_opt='next' %}">下一页</a>
+                {% endif %}
+            </div>
+        </div>
+        {#    演员#}
+        <div class="detail_performer">
+            <hr>
+            <p><label for="video-url">视频地址：</label><input type="text" id="video-url"></p>
+            <p><button type='button' class="btn btn-primary submit">add</button></p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+	{{ block.super }}
+    <script src="{% static 'dashboard/js/video_detail.js' %}"></script>
+{% endblock %}

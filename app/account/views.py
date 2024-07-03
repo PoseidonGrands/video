@@ -42,6 +42,7 @@ def user_login(request):
             'to_url': to_url
         })
 
+
 def user_logout(request):
     logout(request)
     return redirect(reverse('login'))
