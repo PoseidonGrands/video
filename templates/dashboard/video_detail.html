@@ -18,6 +18,7 @@
         <div class="detail_episode">
             <h3>集数</h3>
             <p><label for="video-url">视频地址：</label><input type="text" id="video-url"></p>
+            <p><label for="video-number">集数：</label><input type="number" id="video-number"></p>
             <p><button type='button' class="btn btn-primary submit-add-episode">add</button></p>
             <table class="table">
                 <thead>
@@ -32,7 +33,11 @@
                 	<tr>
                         <td><p class="episode-number">{{ sub.number }}</td>
                         <td><p class="episode-url">{{ sub.url }}</p></td>
-                        <td><p class="episode-opt"><a href="{{ sub.url }}">查看</a></p></td>
+                        <td class="episode-opt">
+                            <a class="btn btn-primary episode-check" href="{{ sub.url }}">查看</a>
+                            <a class="btn btn-primary episode-edit" href="{{ sub.url }}">编辑</a>
+                            <a class="btn btn-primary episode-del" href="{{ sub.url }}">删除</a>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

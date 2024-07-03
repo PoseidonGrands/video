@@ -78,29 +78,36 @@ def video_detail(request, video_id=None, current_page=1, page_opt=None):
         ret_obj = {
             'code': 200,
             'msg': 'success',
-            'data': {
-
-            }
+            'data': {}
         }
+        error = ''
         # 获取集数
         try:
             video_url = request.POST.get('video_url')
-            video = Video.objects.filter(id=video_id).first()
-            # 获取集数的两种方法
-            # episodes_count = VideoSub.objects.filter(video=video).count()
-            # print(episodes_count)
-            episodes_count = video.video_sub.count()
+            video_number = int(request.POST.get('video_number', 1))
+            print(video_number)
+
+            # 集数不能小于<1
+            if int(video_number) < 1:
+                error = '?error=invalid video number'
+
+            # 数据是否确实
+            if not all([video_url, video_number]):
+                error = '?error=video_url and video_number are required'
 
             # 存入数据库
-            VideoSub.objects.create(url=video_url, video_id=video_id, number=episodes_count + 1)
-        except:
+            VideoSub.objects.create(url=video_url, video_id=video_id, number=video_number)
+        except Exception as e:
             ret_obj = {
                 'code': 403,
                 'msg': 'failed',
-                'data': {
-
-                }
+                'error': str(e),
+                'data': {}
             }
+        if error:
+            ret_obj['error'] = error
+            ret_obj['code'] = 403
+            ret_obj['msg'] = 'failed'
         return http.JsonResponse(ret_obj)
     else:
         error = request.GET.get('error', None)

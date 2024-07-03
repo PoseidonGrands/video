@@ -7,30 +7,33 @@ let videoDetailOps = {
     },
     eventBind: function (){
         $('.submit-add-episode').click(function (){
-            videoUrl = $('#video-url').val()
-            videoId = $('.video-id').text()
+            let videoId = $('.video-id').text()
+            let videoUrl = $('#video-url').val()
+            let videoNumber = $('#video-number').val()
+            console.log('number:', videoNumber)
             $.ajax({
                 url: videoDetailUrlBase + videoId,
                 type: 'POST',
                 data: {
                     'video_url': videoUrl,
                     'video_id': videoId,
+                    'video_number': videoNumber,
                 },
                 dataType: 'json',
                 success: function (res){
                     if(res.code === 200){
                         window.location.href = videoDetailUrlBase + videoId
                     }else{
-                        window.location.href = videoDetailUrlBase + videoId + '?error=' + res.msg
+                        window.location.href = videoDetailUrlBase + videoId + res.error
                     }
                 }
             })
         })
 
         $('.submit-add-star').click(function (){
-            videoId = $('.video-id').text()
-            starName = $('#star-name').val()
-            starIdentify = $('#star-identify').val()
+            let videoId = $('.video-id').text()
+            let starName = $('#star-name').val()
+            let starIdentify = $('#star-identify').val()
             $.ajax({
                 url: performerUrlBase + videoId,
                 type: 'POST',

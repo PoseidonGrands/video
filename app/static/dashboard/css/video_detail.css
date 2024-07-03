@@ -21,14 +21,20 @@
         }
 
         .episode-url {
-            width: 800px;
+            width: 600px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
 
         .episode-opt {
-            width: 100px;
+            display: inline-block;
+            width: 200px;
+
+            a{
+                width: 50px;
+                padding: 0;
+            }
         }
     }
 
