@@ -45,3 +45,16 @@ class NationalityType(Enum):
     @property
     def name(self):
         return self.value[0]
+
+class IdentifyType(Enum):
+    performer = ('performer', '演员')
+    script_writer = ('script_writer', '编剧')
+    director = ('director', '导演')
+
+    @property
+    def label(self):
+        return self.value[1]
+
+    @property
+    def name(self):
+        return self.value[0]

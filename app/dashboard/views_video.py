@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from app.model.video import Video, VideoSub, VideoStar
 from app.utils.common import enum_type_check
-from app.utils.consts import VideoType, FromType, NationalityType
+from app.utils.consts import VideoType, FromType, NationalityType, IdentifyType
 
 
 @csrf_exempt
@@ -82,9 +82,9 @@ def video_detail(request, video_id=None, current_page=1, page_opt=None):
 
             }
         }
-        video_url = request.POST.get('video_url')
         # 获取集数
         try:
+            video_url = request.POST.get('video_url')
             video = Video.objects.filter(id=video_id).first()
             # 获取集数的两种方法
             # episodes_count = VideoSub.objects.filter(video=video).count()
@@ -107,6 +107,8 @@ def video_detail(request, video_id=None, current_page=1, page_opt=None):
 
         video = Video.objects.filter(id=video_id).first()
         video_sub = VideoSub.objects.filter(video=video)
+        video_star = VideoStar.objects.filter(video_id=video_id)
+        print(video_star)
 
         # 分页
         current_page = int(current_page)
@@ -118,7 +120,6 @@ def video_detail(request, video_id=None, current_page=1, page_opt=None):
         p = Paginator(video_sub, per_page_count)
         page = p.page(current_page)
 
-
         return render(request, 'dashboard/video_detail.html',
                       {
                           'error': error,
@@ -127,10 +128,52 @@ def video_detail(request, video_id=None, current_page=1, page_opt=None):
                           'video_sub': video_sub,
                           'page': page,
                           'current_page': current_page,
-                          'total_page': page.paginator.num_pages
+                          'total_page': page.paginator.num_pages,
+                          'identify_type': list(IdentifyType),
+                          'stars': video_star
                       })
 
 
 @csrf_exempt
 def video_detail_performer(request, video_id=None):
-    return render(request, '')
+    if request.method == 'POST':
+        ret_obj = {
+            'code': 200,
+            'msg': 'success',
+            'data': {}
+        }
+        error = ''
+        video_id = request.POST.get('video_id')
+        name = request.POST.get('star_name')
+        identify = request.POST.get('star_identify')
+
+        if not all([video_id, name, identify]):
+            error = '?error=missing field...'
+
+        # 检查类型是否匹配
+        if not error:
+            print(IdentifyType)
+            print(identify)
+            identify_check = enum_type_check(IdentifyType, identify, f'the type {identify} is not exist...')
+
+            if identify_check['code'] == -1:
+                error = f'?error={identify_check["msg"]}'
+
+        # 没有问题，入库
+        if not error:
+            try:
+                video = Video.objects.filter(id=video_id).first()
+                VideoStar.objects.create(video=video, name=name, identify=identify)
+            except:
+                ret_obj = {
+                    'code': 403,
+                    'msg': 'failed',
+                    'data': {}
+                }
+        else:
+            ret_obj['error'] = error
+            ret_obj['code'] = 403
+            ret_obj['msg'] = 'failed'
+
+        print(ret_obj)
+        return http.JsonResponse(ret_obj)

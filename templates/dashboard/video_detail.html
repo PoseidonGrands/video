@@ -8,13 +8,16 @@
 
 {% block main_content %}
 	<h1>{{ video.name }}</h1>
+    {% if error %}
+        <span>{{ error }}</span>
+    {% endif %}
     <div class="video-detail-container">
         <span class='video-id' style="display:none">{{ video.id }}</span>
         {#    集数#}
         <div class="detail_episode">
             <h3>集数</h3>
             <p><label for="video-url">视频地址：</label><input type="text" id="video-url"></p>
-            <p><button type='button' class="btn btn-primary submit">add</button></p>
+            <p><button type='button' class="btn btn-primary submit-add-episode">add</button></p>
             <table class="table">
                 <thead>
                     <tr>
@@ -42,11 +45,42 @@
                 {% endif %}
             </div>
         </div>
+        <hr>
         {#    演员#}
         <div class="detail_performer">
-            <hr>
-            <p><label for="video-url">视频地址：</label><input type="text" id="video-url"></p>
-            <p><button type='button' class="btn btn-primary submit">add</button></p>
+            <h3>人员信息</h3>
+            <p><label for="star-name">姓名：</label><input type="text" id="star-name"></p>
+            <select name="star-identify" id="star-identify">
+                {% for item in identify_type %}
+                    <option value="{{ item.name }}">{{ item.label }}</option>
+                {% endfor %}
+            </select>
+            <p><button type='button' class="btn btn-primary submit-add-star">add</button></p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>身份</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for star in stars %}
+                	<tr>
+                        <td><p class="star-name">{{ star.name }}</td>
+                        <td>
+                            <p class="star-identify">
+                                {% for identify in identify_type %}
+                                	{% if star.identify == identify.name %}
+                                        {{ identify.label }}
+                                    {% endif %}
+                                {% endfor %}
+
+                            </p>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}

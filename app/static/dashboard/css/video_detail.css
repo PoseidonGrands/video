@@ -11,23 +11,25 @@
         display: inline-block;
     }
 
-    table{
-        width: 1000px;
-    }
+    .detail_episode{
+        table{
+            width: 1000px;
+        }
 
-    .episode-number{
-        width: 100px;
-    }
+        .episode-number{
+            width: 100px;
+        }
 
-    .episode-url {
-        width: 800px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+        .episode-url {
+            width: 800px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
-    .episode-opt {
-        width: 100px;
+        .episode-opt {
+            width: 100px;
+        }
     }
 
     tr {

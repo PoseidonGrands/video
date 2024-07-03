@@ -11,7 +11,7 @@ urlpatterns = [
     path('manage/video_external', video_external, name='video_external'),
     path('manage/video_custom', video_custom, name='video_custom'),
     path('manage/video_detail/<int:video_id>', video_detail, name='video_detail'),
+    path('manage/video_detail/<int:video_id>/<str:current_page>/', video_detail, name='video_detail'),
     path('manage/video_detail/<int:video_id>/<str:current_page>/<str:page_opt>', video_detail, name='video_detail'),
-    # path('manage/video_detail_episode/<int:video_id>', video_detail_episode, name='video_detail_episode'),
     path('manage/video_detail_performer/<int:video_id>', video_detail_performer, name='video_detail_performer'),
 ]
