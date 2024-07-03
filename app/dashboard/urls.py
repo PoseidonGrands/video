@@ -14,4 +14,5 @@ urlpatterns = [
     path('manage/video_detail/<int:video_id>/<str:current_page>/', video_detail, name='video_detail'),
     path('manage/video_detail/<int:video_id>/<str:current_page>/<str:page_opt>', video_detail, name='video_detail'),
     path('manage/video_detail_performer/<int:video_id>', video_detail_performer, name='video_detail_performer'),
+    path('manage/video_detail_performer_del/<int:video_id>', video_detail_performer_del, name='video_detail_performer_del'),
 ]

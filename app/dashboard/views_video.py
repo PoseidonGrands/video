@@ -177,3 +177,13 @@ def video_detail_performer(request, video_id=None):
 
         print(ret_obj)
         return http.JsonResponse(ret_obj)
+
+
+@csrf_exempt
+def video_detail_performer_del(request, video_id=None):
+    """演员信息删除"""
+    try:
+        VideoStar.objects.filter(video_id=video_id).delete()
+    except:
+        print('del error...')
+    return redirect(reverse('video_detail', kwargs={'video_id': video_id}))
