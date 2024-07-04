@@ -12,6 +12,9 @@
     }
 
     .detail_episode{
+        .edit_episode{
+            display: none;
+        }
         table{
             width: 1000px;
         }

@@ -4,7 +4,7 @@ from django import http
 from django.views.decorators.csrf import csrf_exempt
 
 from app.model.video import Video, VideoSub, VideoStar
-from app.utils.common import enum_type_check
+from app.utils.common import enum_type_check, validate_required_fileds
 from app.utils.consts import VideoType, FromType, NationalityType, IdentifyType
 
 
@@ -34,9 +34,7 @@ def video_external(request):
 
         error = ''
         # 检查是否有字段没输入
-        if not all([name, info, image, type, from_to, nationality]):
-            error = '?error=missing field...'
-
+        error = validate_required_fileds(name, info, image, video_type, from_to, nationality)
         if not error:
             # 检查枚举是否符合类型
             video_check = enum_type_check(VideoType, video_type, f'the type {video_type} is not exist...')
@@ -219,5 +217,11 @@ def video_detail_episode_edit(request):
 
 
 def video_detail_episode_del(request, video_id=None, video_sub_id=None):
-    VideoSub.objects.filter(pk=video_sub_id).delete()
-    return redirect(reverse('video_detail', kwargs={'video_id': video_id}))
+    """删除指定集数"""
+    error = ''
+    try:
+        VideoSub.objects.filter(pk=video_sub_id).delete()
+    except Exception as e:
+        error = 'del failed...'
+    format_url = reverse('video_detail', kwargs={'video_id': video_id})
+    return redirect(f'{format_url}?error={error}')

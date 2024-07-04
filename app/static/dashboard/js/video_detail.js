@@ -48,6 +48,9 @@ let videoDetailOps = {
             videoSubId.val(subId)
             videoNumberEdit.val(number)
             videoUrlEdit.val(url)
+
+            // 显示编辑区
+            $('.edit_episode').show()
         })
 
         $('.submit-edit-episode').click(function (){
