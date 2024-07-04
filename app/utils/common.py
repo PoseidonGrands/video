@@ -5,3 +5,12 @@ def enum_type_check(obj, type, msg):
     except:
         return {'code': -1, 'msg': msg}
     return {'code': 1, 'msg': 'success'}
+
+
+def validate_data(*args, **kwagrs):
+    """验证是否存在错误"""
+    error = ''
+    print(args)
+    if not all([]):
+        error = 'missing field...'
+    return error

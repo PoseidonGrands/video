@@ -143,6 +143,7 @@ def video_detail(request, video_id=None, current_page=1, page_opt=None):
 
 @csrf_exempt
 def video_detail_performer(request, video_id=None):
+    """人员信息添加和展示"""
     if request.method == 'POST':
         ret_obj = {
             'code': 200,
@@ -193,4 +194,30 @@ def video_detail_performer_del(request, video_id=None):
         VideoStar.objects.filter(video_id=video_id).delete()
     except:
         print('del error...')
+    return redirect(reverse('video_detail', kwargs={'video_id': video_id}))
+
+@csrf_exempt
+def video_detail_episode_edit(request):
+    """集数信息修改"""
+    if request.method == 'POST':
+        video_id = request.POST.get('video_id')
+        video_sub_id = request.POST.get('sub_id')
+        video_url_edit = request.POST.get('video_url_edit')
+        video_number_edit = request.POST.get('video_number_edit')
+
+        sub = VideoSub.objects.filter(pk=video_sub_id).first()
+        print('sub', video_sub_id)
+        if sub:
+            sub.number = video_number_edit
+            sub.url = video_url_edit
+            sub.save()
+        return http.JsonResponse({
+            'code': 200,
+            'msg': 'success',
+            'redirectUrl': f'http://localhost:8001/dashboard/manage/video_detail/{video_id}'
+        })
+
+
+def video_detail_episode_del(request, video_id=None, video_sub_id=None):
+    VideoSub.objects.filter(pk=video_sub_id).delete()
     return redirect(reverse('video_detail', kwargs={'video_id': video_id}))

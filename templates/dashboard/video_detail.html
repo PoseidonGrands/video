@@ -20,6 +20,14 @@
             <p><label for="video-url">视频地址：</label><input type="text" id="video-url"></p>
             <p><label for="video-number">集数：</label><input type="number" id="video-number"></p>
             <p><button type='button' class="btn btn-primary submit-add-episode">add</button></p>
+            <hr>
+            <div class="edit_episode">
+                <h4>修改集数信息</h4>
+                <p><label for="ideo-url-edit">视频地址：</label><input type="text" id="video-url-edit"></p>
+                <p><label for="video-number-edit">集数：</label><input type="number" id="video-number-edit"></p>
+                <p><button type='button' class="btn btn-primary submit-edit-episode">confirm</button></p>
+                <input type="hidden" id="video-sub-id">
+            </div>
             <table class="table">
                 <thead>
                     <tr>
@@ -35,8 +43,9 @@
                         <td><p class="episode-url">{{ sub.url }}</p></td>
                         <td class="episode-opt">
                             <a class="btn btn-primary episode-check" href="{{ sub.url }}">查看</a>
-                            <a class="btn btn-primary episode-edit" href="{{ sub.url }}">编辑</a>
-                            <a class="btn btn-primary episode-del" href="{{ sub.url }}">删除</a>
+                            <a class="btn btn-primary episode-edit"
+                               data-id="{{ sub.id }}" data-number="{{ sub.number }}" data-url="{{ sub.url }}">编辑</a>
+                            <a class="btn btn-primary episode-del" href="{% url 'video_detail_episode_del' video_id=video_id video_sub_id=sub.id %}">删除</a>
                         </td>
                     </tr>
                 {% endfor %}

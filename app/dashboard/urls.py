@@ -15,4 +15,7 @@ urlpatterns = [
     path('manage/video_detail/<int:video_id>/<str:current_page>/<str:page_opt>', video_detail, name='video_detail'),
     path('manage/video_detail_performer/<int:video_id>', video_detail_performer, name='video_detail_performer'),
     path('manage/video_detail_performer_del/<int:video_id>', video_detail_performer_del, name='video_detail_performer_del'),
+    # 集数信息编辑
+    path('manage/video_detail_episode_edit/', video_detail_episode_edit, name='video_detail_episode_edit'),
+    path('manage/video_detail_episode_del/<int:video_id>/<int:video_sub_id>', video_detail_episode_del, name='video_detail_episode_del'),
 ]
