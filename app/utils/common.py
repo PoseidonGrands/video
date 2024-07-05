@@ -7,7 +7,7 @@ def enum_type_check(obj, type, msg):
     return {'code': 1, 'msg': 'success'}
 
 
-def validate_required_fileds(*args, **kwagrs):
+def validate_required_fields(*args, **kwagrs):
     """验证是否存在错误"""
     error = ''
     print(args)

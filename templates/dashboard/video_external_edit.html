@@ -1,0 +1,85 @@
+{% extends 'dashboard/index_base.html' %}
+
+{% load static %}
+{% block css %}
+    {{ block.super }}
+{% endblock %}
+
+{% block main_content %}
+	<div class="video_edit_main">
+        <form action="{% url 'video_external_edit' video_id=video.id %}" method="post">
+        {% csrf_token %}
+            {% if error %}
+            	<p class="text-danger">{{ error }}</p>
+            {% endif %}
+            <p>
+                <label for="videoNameInput">videoname:</label>
+                <input type="text" class="video_name" id="videoNameInput" name="video_name" value="{{ video.name }}" placeholder="videoname">
+            </p>
+            <p>
+                <label for="videoInfoInput" class="video_info_label">info:</label>
+                <textarea type="text" class="video_info" id="videoInfoInput" name="video_info" placeholder="videoinfo">{{ video.info }}</textarea>
+            </p>
+            <p>
+                <label for="videoImageInput">image:</label>
+                <input type="text" class="video_image" id="videoImageInput" name="video_image" value="{{ video.image }}" placeholder="image">
+            </p>
+            <p><label for="video_type">VideoType</label>
+                <select name="video_type" id="video_type">
+{#                将读取到的用户选项展示在第一个#}
+                    {% for type in VideoType %}
+                        {% if type.name == video.type %}
+                            <option value="{{ type.value.0 }}">{{ type.value.1 }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    {% for video_type in VideoType %}
+{#                        只展示用户没有选的选项，避免重复展示#}
+                        {% if not video.type == video_type.value.0 %}
+                            <option value="{{ video_type.value.0 }}">{{ video_type.value.1 }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </p>
+            <p><label for="video_from">VideoSource</label>
+                <select name="video_from" id="video_from">
+{#                将读取到的用户选项展示在第一个#}
+                    {% for from in FromType %}
+                        {% if from.name == video.from_to %}
+                            <option value="{{ from.value.0 }}">{{ from.value.1 }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    {% for from in FromType %}
+{#                        只展示用户没有选的选项，避免重复展示#}
+                        {% if not video.from_to == from.value.0 %}
+                            <option value="{{ from.value.0 }}">{{ from.value.1 }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </p>
+            <p><label for="nationality_type">NationalityType</label>
+                <select name="video_nationality" id="nationality_type">
+{#                将读取到的用户选项展示在第一个#}
+                    {% for nationality in NationalityType %}
+                        {% if nationality.name == video.nationality %}
+                            <option value="{{ nationality.value.0 }}">{{ nationality.value.1 }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    {% for nationality in NationalityType %}
+{#                        只展示用户没有选的选项，避免重复展示#}
+                        {% if not video.nationality == nationality.value.0 %}
+                            <option value="{{ nationality.value.0 }}">{{ nationality.value.1 }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </p>
+            <input type="hidden" value="{{ video.id }}" name="video_id">
+            <p><button type='submit' class="btn btn-primary submit">confirm</button></p>
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+	{{ block.super }}
+{#    <script src="{% static 'dashboard/js/video_detail.js' %}"></script>#}
+{% endblock %}

@@ -4,11 +4,13 @@ from django import http
 from django.views.decorators.csrf import csrf_exempt
 
 from app.model.video import Video, VideoSub, VideoStar
-from app.utils.common import enum_type_check, validate_required_fileds
+from app.utils.common import enum_type_check, validate_required_fields
 from app.utils.consts import VideoType, FromType, NationalityType, IdentifyType
+from app.utils.permission import dashboard_auth
 
 
 @csrf_exempt
+@dashboard_auth
 def video_external(request):
     if request.method == 'GET':
         error = request.GET.get('error', None)
@@ -32,9 +34,10 @@ def video_external(request):
         from_to = request.POST.get('from')
         nationality = request.POST.get('nationality')
 
+
         error = ''
         # 检查是否有字段没输入
-        error = validate_required_fileds(name, info, image, video_type, from_to, nationality)
+        error = validate_required_fields(name, info, image, video_type, from_to, nationality)
         if not error:
             # 检查枚举是否符合类型
             video_check = enum_type_check(VideoType, video_type, f'the type {video_type} is not exist...')
@@ -62,16 +65,58 @@ def video_external(request):
         return http.JsonResponse({
            'code': 200,
            'msg': 'success',
-            'redirectUrl': 'http://localhost:8001/dashboard/manage/video_external' + error
+           'redirectUrl': 'http://localhost:8001/dashboard/manage/video_external' + error
         })
 
 
+@dashboard_auth
+def video_external_edit(request, video_id=None):
+    """外链视频信息编辑"""
+    if request.method == 'GET':
+        error = request.GET.get('error')
+        video = Video.objects.filter(pk=video_id).first()
+        return render(request, 'dashboard/video_external_edit.html', {
+            'video': video,
+            'VideoType': list(VideoType),
+            'FromType': list(FromType)[:-1],
+            'NationalityType': list(NationalityType),
+            'error': error
+        })
+    else:
+        video_id = request.POST.get('video_id')
+        name = request.POST.get('video_name')
+        info = request.POST.get('video_info')
+        image = request.POST.get('video_image')
+        video_type = request.POST.get('video_type')
+        from_to = request.POST.get('video_from')
+        nationality = request.POST.get('video_nationality')
+
+        video = Video.objects.filter(pk=video_id).first()
+        if video:
+            video.name = name
+            video.info = info
+            video.image = image
+            video.type = video_type
+            video.from_to = from_to
+            video.nationality = nationality
+            video.save()
+
+        print('msg:', video_id, name, info, image, video_type, from_to, nationality)
+
+        return redirect(f'{reverse("video_external")}?error=')
+
+
+
+@dashboard_auth
 def video_custom(request):
+    """自制视频"""
     return render(request, 'dashboard/video_custom.html')
 
 
+@dashboard_auth
 @csrf_exempt
 def video_detail(request, video_id=None, current_page=1, page_opt=None):
+    """视频详情页"""
     if request.method == 'POST':
         ret_obj = {
             'code': 200,
@@ -139,6 +184,40 @@ def video_detail(request, video_id=None, current_page=1, page_opt=None):
                       })
 
 
+@dashboard_auth
+@csrf_exempt
+def video_detail_episode_edit(request):
+    """集数信息修改"""
+    if request.method == 'POST':
+        video_id = request.POST.get('video_id')
+        video_sub_id = request.POST.get('sub_id')
+        video_url_edit = request.POST.get('video_url_edit')
+        video_number_edit = request.POST.get('video_number_edit')
+
+        sub = VideoSub.objects.filter(pk=video_sub_id).first()
+        print('sub', video_sub_id)
+        if sub:
+            sub.number = video_number_edit
+            sub.url = video_url_edit
+            sub.save()
+        return http.JsonResponse({
+            'code': 200,
+            'msg': 'success',
+            'redirectUrl': f'http://localhost:8001/dashboard/manage/video_detail/{video_id}'
+        })
+
+@dashboard_auth
+def video_detail_episode_del(request, video_id=None, video_sub_id=None):
+    """删除指定集数"""
+    error = ''
+    try:
+        VideoSub.objects.filter(pk=video_sub_id).delete()
+    except Exception as e:
+        error = 'del failed...'
+    format_url = reverse('video_detail', kwargs={'video_id': video_id})
+    return redirect(f'{format_url}?error={error}')
+
+@dashboard_auth
 @csrf_exempt
 def video_detail_performer(request, video_id=None):
     """人员信息添加和展示"""
@@ -185,6 +264,7 @@ def video_detail_performer(request, video_id=None):
         return http.JsonResponse(ret_obj)
 
 
+@dashboard_auth
 @csrf_exempt
 def video_detail_performer_del(request, video_id=None):
     """演员信息删除"""
@@ -193,35 +273,3 @@ def video_detail_performer_del(request, video_id=None):
     except:
         print('del error...')
     return redirect(reverse('video_detail', kwargs={'video_id': video_id}))
-
-@csrf_exempt
-def video_detail_episode_edit(request):
-    """集数信息修改"""
-    if request.method == 'POST':
-        video_id = request.POST.get('video_id')
-        video_sub_id = request.POST.get('sub_id')
-        video_url_edit = request.POST.get('video_url_edit')
-        video_number_edit = request.POST.get('video_number_edit')
-
-        sub = VideoSub.objects.filter(pk=video_sub_id).first()
-        print('sub', video_sub_id)
-        if sub:
-            sub.number = video_number_edit
-            sub.url = video_url_edit
-            sub.save()
-        return http.JsonResponse({
-            'code': 200,
-            'msg': 'success',
-            'redirectUrl': f'http://localhost:8001/dashboard/manage/video_detail/{video_id}'
-        })
-
-
-def video_detail_episode_del(request, video_id=None, video_sub_id=None):
-    """删除指定集数"""
-    error = ''
-    try:
-        VideoSub.objects.filter(pk=video_sub_id).delete()
-    except Exception as e:
-        error = 'del failed...'
-    format_url = reverse('video_detail', kwargs={'video_id': video_id})
-    return redirect(f'{format_url}?error={error}')
