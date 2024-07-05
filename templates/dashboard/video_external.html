@@ -90,7 +90,7 @@
                                         {% endif %}
                                     {% endfor %}
                                 </td>
-                                <td><a href="#">编辑</a>|<a href="{% url 'video_detail' video_id=video.id %}">详细信息</a></td>
+                                <td><a href="{% url 'video_external_edit' video_id=video.id %}">编辑</a>|<a href="{% url 'video_detail' video_id=video.id %}">详细信息</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
