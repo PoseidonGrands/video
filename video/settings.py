@@ -15,6 +15,9 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -127,3 +130,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+QINIU_AK = 'E_Ot1QPgPkj2IQ85rghULP5JOdBIKaZ1LHfHLhk1'
+QINIU_SK = 'ZNt1wWCLL6HgK3k9SFX7rK_3-YaEvRIj71XxwmSf'
+QINIU_SPACE = 'video-dewei'
+QINIU_SPACE_URL = 'http://sgck52a2g.hn-bkt.clouddn.com'

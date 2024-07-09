@@ -12,6 +12,8 @@ let videoDetailOps = {
             let videoUrl = $('#video-url').val()
             let videoNumber = $('#video-number').val()
             console.log('number:', videoNumber)
+            console.log('url:', videoUrl)
+
             $.ajax({
                 url: videoDetailUrlBase + videoId,
                 type: 'POST',

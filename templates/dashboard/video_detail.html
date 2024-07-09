@@ -14,16 +14,30 @@
     {% endif %}
     <div class="video-detail-container">
         <span class='video-id' style="display:none">{{ video.id }}</span>
-        {#    集数#}
+        {#    集数添加#}
         <div class="detail_episode">
             <h3>集数</h3>
-            <p><label for="video-url">视频地址：</label><input type="text" id="video-url"></p>
-            <p><label for="video-number">集数：</label><input type="number" id="video-number"></p>
-            <p><button type='button' class="btn btn-primary submit-add-episode">add</button></p>
+{#        自制视频的集数添加直接后端获取#}
+            {% if video.from_to == custom_type %}
+                <form action="{% url 'video_detail' video_id=video_id edit_type='custom' %}" enctype="multipart/form-data" method="post">
+                    <p><label for="video-url"></label><input type="file" name="video-url"></p>
+                    <p><label for="video-number">集数：</label><input type="number" name="video-number"></p>
+                    <input type="hidden" name="video-id" value="{{ video.id }}">
+                    <p><button type='submit'>add</button></p>
+                </form>
+            {% else %}
+                    <p><label for="video-url">视频地址：</label><input type="text" id="video-url"></p>
+                    <p><label for="video-number">集数：</label><input type="number" id="video-number"></p>
+                    <p><button type='button' class="btn btn-primary submit-add-episode">add</button></p>
+            {% endif %}
+
             <hr>
+{#        修改集数信息#}
             <div class="edit_episode">
                 <h4>修改集数信息</h4>
-                <p><label for="ideo-url-edit">视频地址：</label><input type="text" id="video-url-edit"></p>
+                <p><label for="ideo-url-edit">视频地址：</label>
+                    <input type="text" id="video-url-edit">
+                </p>
                 <p><label for="video-number-edit">集数：</label><input type="number" id="video-number-edit"></p>
                 <p><button type='button' class="btn btn-primary submit-edit-episode">confirm</button></p>
                 <input type="hidden" id="video-sub-id">
@@ -61,7 +75,7 @@
             </div>
         </div>
         <hr>
-        {#    演员#}
+        {#    人员信息#}
         <div class="detail_performer">
             <h3>人员信息</h3>
             <p><label for="star-name">姓名：</label><input type="text" id="star-name"></p>

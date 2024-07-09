@@ -1,5 +1,86 @@
 {% extends 'dashboard/index_base.html' %}
+{% load static %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" lang="less" href="{% static 'dashboard/css/video_base.css' %}">
+{% endblock %}
 
 {% block main_content %}
     <h1>自制视频页面</h1>
+    <div class="video_container">
+        <button type="button" class="add_video btn btn-primary">Add Video</button>
+        {% if error  %}
+            {{ error }}
+        {% endif %}
+{#    添加视频信息#}
+        <form action="{% url 'video_custom' %}" method="post">
+            {% csrf_token %}
+            {% include 'dashboard/component/add_video_area.html' with show_from='false' %}
+        </form>
+    
+        <div class="video_info_show_main">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>描述</th>
+                        <th>图片</th>
+                        <th>视频类型</th>
+                        <th>播放平台</th>
+                        <th>地区</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for video in videos %}
+                        <tr>
+                                <td>{{ video.name }}</td>
+                                <td><p class="video-info">{{ video.info }}</p></td>
+                                <td><img class="video-img" src="{{ video.image }}" alt=""></td>
+                                <td>
+                                    {% for type in VideoType %}
+                                    	{% if type.name == video.type %}
+                                            {{ type.label }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for type in FromType %}
+                                    	{% if type.name == video.from_to %}
+                                            {{ type.label }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for type in NationalityType %}
+                                    	{% if type.name == video.nationality %}
+                                            {{ type.label }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% if video.status %}
+                                        可观看
+                                    {% else %}
+                                        已下线
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'video_edit' video_id=video.id  edit_type='custom' %}">编辑</a>|
+                                    <a href="{% url 'video_detail' video_id=video.id %}">详细信息</a>|
+                                    <a href="{% url 'video_change_status' video_id=video.id %}">修改状态</a>
+                                </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'dashboard/js/video_base.js' %}"></script>
 {% endblock %}

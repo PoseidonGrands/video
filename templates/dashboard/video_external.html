@@ -3,7 +3,7 @@
 
 {% block css %}
     {{ block.super }}
-    <link rel="stylesheet" lang="less" href="{% static 'dashboard/css/video_external.css' %}">
+    <link rel="stylesheet" lang="less" href="{% static 'dashboard/css/video_base.css' %}">
 {% endblock %}
 
 {% block main_content %}
@@ -13,42 +13,7 @@
         {% if error  %}
             {{ error }}
         {% endif %}
-        <div class="video_edit_main">
-            <p>
-                <label for="videoNameInput">videoname:</label>
-                <input type="text" placeholder="videoname" class="video_name" id="videoNameInput">
-            </p>
-            <p>
-                <label for="videoInfoInput" class="video_info_label">info:</label>
-                <textarea type="text" placeholder="videoinfo" class="video_info" id="videoInfoInput"></textarea>
-            </p>
-            <p>
-                <label for="videoImageInput">image:</label>
-                <input type="text" placeholder="image" class="video_image" id="videoImageInput">
-            </p>
-            <p><label for="video_type">VideoType</label>
-                <select name="video_type" id="video_type">
-                    {% for video_type in VideoType %}
-                        <option value="{{ video_type.value.0 }}">{{ video_type.value.1 }}</option>
-                    {% endfor %}
-                </select>
-            </p>
-            <p><label for="video_from">VideoSource</label>
-                <select name="video_from" id="video_from">
-                    {% for video_from in FromType %}
-                        <option value="{{ video_from.name }}">{{ video_from.label }}</option>
-                    {% endfor %}
-                </select>
-            </p>
-            <p><label for="nationality_type">NationalityType</label>
-                <select name="nationality_type" id="nationality_type">
-                    {% for nationality in NationalityType %}
-                        <option value="{{ nationality.name }}">{{ nationality.label }}</option>
-                    {% endfor %}
-                </select>
-            </p>
-            <p><button type='button' class="btn btn-primary submit">add</button></p>
-        </div>
+        {% include 'dashboard/component/add_video_area.html' with show_from='true' %}
 
         <div class="video_info_show_main">
             <table class="table">
@@ -60,6 +25,7 @@
                         <th>视频类型</th>
                         <th>播放平台</th>
                         <th>地区</th>
+                        <th>状态</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -90,7 +56,18 @@
                                         {% endif %}
                                     {% endfor %}
                                 </td>
-                                <td><a href="{% url 'video_external_edit' video_id=video.id %}">编辑</a>|<a href="{% url 'video_detail' video_id=video.id %}">详细信息</a></td>
+                                <td>
+                                    {% if video.status %}
+                                        可观看
+                                    {% else %}
+                                        已下线
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'video_edit' video_id=video.id edit_type='external' %}">编辑</a>|
+                                    <a href="{% url 'video_detail' video_id=video.id edit_type='external' %}">详细信息</a>|
+                                    <a href="{% url 'video_change_status' video_id=video.id %}">修改状态</a>
+                                </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -101,5 +78,6 @@
 
 {% block js %}
     {{ block.super }}
+    <script src="{% static 'dashboard/js/video_base.js' %}"></script>
     <script src="{% static 'dashboard/js/video_external.js' %}"></script>
 {% endblock %}
