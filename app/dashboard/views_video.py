@@ -165,21 +165,7 @@ def video_detail(request, video_id=None, current_page=1, page_opt=None, edit_typ
             number = request.POST.get('video-number')
 
             # 视频转码并上传七牛云
-            url, filename = handle_video(upload_file)
-            print('filename', filename)
-
-            if url:
-                # 将自制视频的地址和集数信息保存到数据库
-                try:
-                    video = Video.objects.filter(id=video_id).first()
-                    VideoSub.objects.create(
-                        url=url,
-                        name=filename,
-                        number=number,
-                        video=video
-                    )
-                except Exception as e:
-                    print(e)
+            handle_video(upload_file, video_id, number)
 
             return redirect(reverse('video_detail', kwargs={'video_id': video_id}))
         # 非自制视频通过ajax提交

@@ -42,6 +42,7 @@
                 <p><button type='button' class="btn btn-primary submit-edit-episode">confirm</button></p>
                 <input type="hidden" id="video-sub-id">
             </div>
+{#        集数展示表#}
             <table class="table">
                 <thead>
                     <tr>
@@ -54,7 +55,16 @@
                 {% for sub in page %}
                 	<tr>
                         <td><p class="episode-number">{{ sub.number }}</td>
-                        <td><p class="episode-url">{{ sub.url }}</p></td>
+                        <td>
+{#                            如果是自制视频并且地址为空显示“处理中...”#}
+                            <p class="episode-url">
+                                {% if sub.url == '' and sub.video.from_to %}
+                                	处理中...
+                                {% else %}
+                                    {{ sub.url }}
+                                {% endif %}
+                            </p>
+                        </td>
                         <td class="episode-opt">
                             <a class="btn btn-primary episode-check" href="{{ sub.url }}">查看</a>
                             <a class="btn btn-primary episode-edit"

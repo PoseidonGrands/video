@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -136,3 +135,8 @@ QINIU_AK = 'E_Ot1QPgPkj2IQ85rghULP5JOdBIKaZ1LHfHLhk1'
 QINIU_SK = 'ZNt1wWCLL6HgK3k9SFX7rK_3-YaEvRIj71XxwmSf'
 QINIU_SPACE = 'video-dewei'
 QINIU_SPACE_URL = 'http://sgck52a2g.hn-bkt.clouddn.com'
+
+
+CELERY_BROKER_URL = 'redis://:root@localhost:6379/0'
+CEELERY_RESULT_BACKEND = 'redis://:root@localhost:6379/1'
+CELERY_IMPORTS = ('app.tasks.task',)
