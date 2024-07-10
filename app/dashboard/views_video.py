@@ -4,6 +4,7 @@ from django import http
 from django.views.decorators.csrf import csrf_exempt
 
 from app.model.video import Video, VideoSub, VideoStar
+from app.utils.base_qiniu import qiniu
 from app.utils.common import enum_type_check, validate_required_fields, handle_video
 from app.utils.consts import VideoType, FromType, NationalityType, IdentifyType
 from app.utils.permission import dashboard_auth
@@ -164,17 +165,21 @@ def video_detail(request, video_id=None, current_page=1, page_opt=None, edit_typ
             number = request.POST.get('video-number')
 
             # 视频转码并上传七牛云
-            url = handle_video(upload_file)
-            print(url)
+            url, filename = handle_video(upload_file)
+            print('filename', filename)
 
             if url:
                 # 将自制视频的地址和集数信息保存到数据库
-                video = Video.objects.filter(id=video_id).first()
-                VideoSub.objects.create(
-                    url=url,
-                    number=number,
-                    video=video
-                )
+                try:
+                    video = Video.objects.filter(id=video_id).first()
+                    VideoSub.objects.create(
+                        url=url,
+                        name=filename,
+                        number=number,
+                        video=video
+                    )
+                except Exception as e:
+                    print(e)
 
             return redirect(reverse('video_detail', kwargs={'video_id': video_id}))
         # 非自制视频通过ajax提交
@@ -268,16 +273,24 @@ def video_detail_episode_edit(request):
             'redirectUrl': f'http://localhost:8001/dashboard/manage/video_detail/{video_id}'
         })
 
+
 @dashboard_auth
-def video_detail_episode_del(request, video_id=None, video_sub_id=None):
+def video_detail_episode_del(request, video_id=None, video_sub_id=None, sub_name=None):
     """删除指定集数"""
     error = ''
+    print('sub_name', sub_name)
     try:
         VideoSub.objects.filter(pk=video_sub_id).delete()
     except Exception as e:
         error = 'del failed...'
     format_url = reverse('video_detail', kwargs={'video_id': video_id})
+
+    # 数据库删除记录+七牛云删除文件
+    if sub_name:
+        qiniu.del_file(sub_name)
+
     return redirect(f'{format_url}?error={error}')
+
 
 @dashboard_auth
 @csrf_exempt

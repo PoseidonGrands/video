@@ -25,6 +25,7 @@ class VideoSub(models.Model):
     video = models.ForeignKey(
         Video, on_delete=models.CASCADE, related_name='video_sub'
     )
+    name = models.CharField(max_length=64, null=True, blank=True)
     url = models.CharField(max_length=500, null=False, blank=False)
     number = models.SmallIntegerField(null=False, blank=False, default='1')
 

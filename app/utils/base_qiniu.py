@@ -1,4 +1,4 @@
-from qiniu import Auth, put_data, put_file
+from qiniu import Auth, put_data, put_file, BucketManager
 from django.conf import settings
 
 
@@ -26,6 +26,15 @@ class QINIU(object):
             return ret_url
         else:
             return ''
+
+    def del_file(self, name):
+        bucket = BucketManager(self.q)
+        bucket_name = self.space_name
+        key = name
+        # 删除bucket_name 中的文件 key
+        ret, info = bucket.delete(bucket_name, key)
+        print(ret)
+        print(info)
 
 
 qiniu = QINIU(settings.QINIU_SPACE, settings.QINIU_SPACE_URL)

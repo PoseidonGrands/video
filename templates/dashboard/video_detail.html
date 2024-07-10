@@ -59,7 +59,8 @@
                             <a class="btn btn-primary episode-check" href="{{ sub.url }}">查看</a>
                             <a class="btn btn-primary episode-edit"
                                data-id="{{ sub.id }}" data-number="{{ sub.number }}" data-url="{{ sub.url }}">编辑</a>
-                            <a class="btn btn-primary episode-del" href="{% url 'video_detail_episode_del' video_id=video_id video_sub_id=sub.id %}">删除</a>
+                            <a class="btn btn-primary episode-del"
+                               href="{% url 'video_detail_episode_del' video_id=video_id video_sub_id=sub.id sub_name=sub.name %}">删除</a>
                         </td>
                     </tr>
                 {% endfor %}

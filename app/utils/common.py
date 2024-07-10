@@ -32,7 +32,7 @@ def handle_video(upload_file):
     # 文件名与后缀分开
     file_name_cut = upload_file.name.split('.')
     # 构建输入文件名
-    file_name = f'{file_name_cut[0]}-{int(time.time())}.{file_name_cut[1]}'
+    file_name = f'{file_name_cut[0]}_{int(time.time())}.{file_name_cut[1]}'
     # 输入文件的完整路径
     path_name_in = f'{file_path_in}/{file_name}'
 
@@ -44,6 +44,10 @@ def handle_video(upload_file):
     path_name_input = f'{file_path_in}/{filename}'
     path_name_output = f'{file_path_output}/{filename}'
 
+    print(path_name_in)
+    print(path_name_input)
+
+
     command = f'ffmpeg -i {path_name_input} -c copy {path_name_output}'
     os.system(command)
 
@@ -51,13 +55,14 @@ def handle_video(upload_file):
     url = qiniu.put(filename, path_name_output)
 
     # 删除本地的临时文件
-    remove_video([path_name_input, path_name_output])
+    remove_video_local([path_name_input, path_name_output])
 
-    return url
+    return url, filename
 
 
-def remove_video(videos):
+def remove_video_local(videos):
     """将路径的视频全部移除"""
     for video in videos:
         if os.path.exists(video):
             os.remove(video)
+
