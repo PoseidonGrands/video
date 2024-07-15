@@ -6,6 +6,7 @@ var account_login_ops = {
     },
     eventBind:function (){
         $(".login_wrap .do-login").click(function (){
+            console.log('登录')
             let loginBtn = $(this);
             if(loginBtn.hasClass('disabled')){
                 console.log('请不要重复点击！')
@@ -32,6 +33,7 @@ var account_login_ops = {
                 },
                 dataType: 'json',
                 success: function (res){
+                    console.log('登录成功')
                     //成功获得响应，按钮恢复点击
                     loginBtn.removeClass('disabled')
                     // 跳转页面

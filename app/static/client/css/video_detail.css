@@ -1,0 +1,22 @@
+.video-show{
+    .video-image{
+        display: block;
+
+        width: 100%;
+    }
+
+    p{
+        margin-bottom: 0.2rem;
+        font-size: 0.9rem;
+        font-weight: normal;
+    }
+
+    ul{
+        margin-bottom: 0.2rem;
+    }
+
+    .title{
+        font-weight: bold;
+    }
+}
+

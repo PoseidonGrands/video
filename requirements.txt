@@ -2,3 +2,4 @@ pymysql
 qiniu
 celery
 redis
+django-cors-headers

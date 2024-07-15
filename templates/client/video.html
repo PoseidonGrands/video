@@ -1,0 +1,25 @@
+{# 外链视频和自制视频的共同模板（进入不同的页面时返回不同的数据） #}
+
+{% extends 'client/client_base.html' %}
+
+
+{% load static %}
+{% block css %}
+	{{ block.super }}
+    <link lang="less" rel="stylesheet" href="{% static 'client/css/video.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% for video in videos  %}
+        <div class="video-show">
+            <a href="{% url 'client_video_detail' video_id=video.id %}">
+                <div class="video-image" style="background-image:url({{ video.image }});
+                                        background-size:cover;
+                                        background-position:center"></div>
+                <p class="video-name">{{ video.name }}</p>
+            </a>
+        </div>
+    {% endfor %}
+
+
+{% endblock %}

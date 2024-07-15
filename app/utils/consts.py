@@ -2,9 +2,15 @@ import enum
 from enum import Enum
 
 
+COOKIE_NAME = 'django_video_cookie_name'
+
+
 class VideoType(Enum):
     movie = ('movie', '电影')
     cartoon = ('cartoon', '卡通')
+    anime = ('anime', '动漫')
+    vlog = ('vlog', 'vlog')
+    lubo = ('lubo', '录播')
     other = ('other', '其他')
 
     @property
@@ -16,9 +22,10 @@ class VideoType(Enum):
         return self.value[0]
 
 
-
 class FromType(Enum):
     youku = ('youku', '优酷')
+    tengxun = ('tengxun', '腾讯视频')
+    bilibili = ('bilibili', 'b站')
     aqiyi = ('aqiyi', '爱奇艺')
     custom = ('custom', '自制')
 

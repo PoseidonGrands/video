@@ -1,0 +1,27 @@
+{% extends 'client/client_base.html' %}
+
+{% load static %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'client/css/video_detail.css' %}" lang='less'>
+{% endblock %}
+
+{% block content %}
+    <div class="video-show">
+        <img src="{{ video.image }}" alt="" class="video-image">
+        <p class="title">名称:</p>
+        <p>{{ video.name }}</p>
+        <p class="title">演员:</p>
+        <ul>
+            {% for star in video_star %}
+            	<p>{{ star.identify_label  }}:{{ star.name }}</p>
+            {% endfor %}
+        </ul>
+        <p class="title">简介：</p>
+        <p>{{ video.info }}</p>
+        <p class="title">选集：</p>
+        {% for sub in video_sub %}
+        	<span><a href="{{ sub.url }}" target="_blank">第{{ sub.number }}集 </a></span>
+        {% endfor %}
+    </div>
+{% endblock %}

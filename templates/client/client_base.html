@@ -1,0 +1,35 @@
+{% extends 'common/base.html' %}
+
+{% block meta %}
+    {{ block.super }}
+    <meta name="viewport" content="initial-scale=1,maximum-scale=3,minimum-scale=1,user-scalable=no" />
+{% endblock %}
+
+{% load static %}
+{% block css %}
+    <link lang="less" rel="stylesheet" href="{% static 'client/css/client_base.css' %}">
+{% endblock %}
+
+{% block main %}
+	<header>导航</header>
+
+	<div class="content">
+        {% block content %}
+        	
+        {% endblock %}
+    </div>
+
+    <footer>
+        <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'client_external_video' %}">外链</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'client_custom_video' %}">内链</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mine' %}">我的</a>
+          </li>
+        </ul>
+    </footer>
+{% endblock %}

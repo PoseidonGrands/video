@@ -9,8 +9,8 @@ from django.contrib.auth import *
 def user_login(request):
     """不直接通过表单获取提交的数据，而是通过js获取并校验后通过ajax提交到服务器端（对应的视图函数）"""
     if request.method == 'POST':
-        # print('username:', request.POST.get('loginName'))
-        # print('password:', request.POST.get('loginPwd'))
+        print('username:', request.POST.get('loginName'))
+        print('password:', request.POST.get('loginPwd'))
 
         username = request.POST.get('loginName')
         password = request.POST.get('loginPwd')
@@ -33,6 +33,7 @@ def user_login(request):
                  'code': 404,
                  'redirectUrl': fail_redirect_url + 'error=the username or the password error...'})
         login(request, user)
+        print('登录成功')
         return http.JsonResponse({'msg': 'login success', 'code': 200, 'redirectUrl': success_redirect_url})
     else:
         to_url = request.GET.get('to')

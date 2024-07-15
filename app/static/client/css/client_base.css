@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    width: 100%;
+    background: #ffffff;
+}
+
+body {
+    max-width: 640px;
+    position: relative;
+    margin: 0 auto;
+    font-size: 16px;
+}
+
+header, footer{
+    width: 100%;
+
+    background: #000000;
+    color: green;
+    text-align: center;
+    font-size: 2rem;
+}
+
+header{
+    height: 3rem;
+    line-height: 3rem;
+}
+
+footer{
+    position: fixed;
+
+    padding-bottom: 0.5rem;
+    bottom: 0;
+    text-align: center;
+}
+
+.content{
+    width: 100%;
+    zoom: 1;
+}
+
+.content:after{
+    display: block;
+    clear: both;
+}
