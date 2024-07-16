@@ -9,6 +9,7 @@ urlpatterns = [
     path('manage/admin/<str:page_opt>/<str:page_index>', admin_manager, name='dashboard_admin'),
     path('manage/user', admin_user, name='dashboard_user'),
     path('manage/video_custom', video_custom, name='video_custom'),
+    path('manage/video_custom/<str:error>', video_custom, name='video_custom'),
     path('manage/video_external', video_external, name='video_external'),
     # 外链视频信息编辑
     path('manage/video_edit/<int:video_id>/<str:edit_type>', video_edit, name='video_edit'),

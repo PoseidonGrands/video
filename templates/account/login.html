@@ -4,18 +4,10 @@
         <div class="col-md-6">
             <div class="jumbotron">
                 <h1 class="display-4">会员登录</h1>
-                <div class="login_wrap">
-                    <div class="form-group">
-                        <label for="login_user">用户名</label>
-                        <input type="email" class="form-control" id="login_user" aria-describedby="emailHelp">
-                    </div>
-                    <div class="form-group">
-                        <label for="login_pwd">密码</label>
-                        <input type="password" class="form-control" id="login_pwd">
-                    </div>
-                    <button type="submit" class="btn btn-primary do-login">确认</button>
-                </div>
-                {{ error }}
+                {% include 'common/base_login.html' %}
+                {% if error %}
+                    {{ error }}
+                {% endif %}
                 <div hidden class="to_url">{{ to_url }}</div>
             </div>
         </div>

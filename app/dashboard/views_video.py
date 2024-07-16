@@ -337,10 +337,12 @@ def video_detail_performer_del(request, video_id=None):
 
 
 @dashboard_auth
-def video_custom(request):
+def video_custom(request, error=None):
     """自制视频"""
     if request.method == 'GET':
-        error = request.GET.get('error', '')
+        if not error:
+            error = request.GET.get('error', '')
+        print('error', error)
         # 获取存储的自制视频信息
         videos = Video.objects.filter(from_to=FromType.custom.name)
 
@@ -369,4 +371,5 @@ def video_custom(request):
             'nationality': nationality,
         }
         error = save_db(video_data)
-        return redirect(reverse('video_custom', kwargs={'error': error}))
+        # return redirect(reverse('video_custom', kwargs={'error': error}))
+        return redirect(f'http://localhost:8001/dashboard/manage/video_custom{error}')

@@ -1,0 +1,8 @@
+{% extends 'client/client_base.html' %}
+
+ {% block content %}
+ 	<h2>{{ user.username }}</h2>
+     {% if user %}
+         <h2><a href="{% url 'client_logout' %}">logout</a></h2>
+     {% endif %}
+ {% endblock %}

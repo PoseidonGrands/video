@@ -17,7 +17,7 @@ def enum_type_check(obj, type, msg):
     return {'code': 1, 'msg': 'success'}
 
 
-def validate_required_fields(*args, **kwagrs):
+def validate_required_fields(*args):
     """验证是否存在错误"""
     error = ''
     print(args)
@@ -39,10 +39,13 @@ def handle_video(upload_file, video_id, number):
     # 输入文件的完整路径
     path_name_in = f'{file_path_in}/{file_name}'
 
+    print(file_path_in, file_path_output, file_name)
+
     # 保存文件
     fs = FileSystemStorage()
     # 保存后的文件名
     filename = fs.save(path_name_in, upload_file).split("/")[-1]
+    print('filename', filename)
 
     path_name_input = f'{file_path_in}/{filename}'
     path_name_output = f'{file_path_output}/{filename}'
@@ -59,9 +62,10 @@ def handle_video(upload_file, video_id, number):
         video=video
     )
 
+    print('celery before')
     # celery处理视频转码、上传、数据库保存（celery的任务不要传递对象，可能出问题？
     video_save_task.delay(command, filename, path_name_input, path_name_output, video_sub_id.id)
-
+    print('celery after')
 
 
 def remove_video_local(videos):
@@ -69,4 +73,5 @@ def remove_video_local(videos):
     for video in videos:
         if os.path.exists(video):
             os.remove(video)
+
 

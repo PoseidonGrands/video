@@ -1,0 +1,12 @@
+<div class="login_wrap">
+    <div class="form-group">
+        <label for="login_user">用户名</label>
+        <input type="email" class="form-control" id="login_user" aria-describedby="emailHelp">
+    </div>
+    <div class="form-group">
+        <label for="login_pwd">密码</label>
+        <input type="password" class="form-control" id="login_pwd">
+    </div>
+    <button type="submit" class="btn btn-primary do-login">确认</button>
+    <input type="hidden" id="django-csrf-token" value="{{ token }}">
+</div>

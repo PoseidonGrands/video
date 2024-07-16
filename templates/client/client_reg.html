@@ -1,0 +1,20 @@
+{% extends 'client/client_base.html' %}
+
+{% load static %}
+{% block css %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include 'common/base_reg.html' %}
+    <input type="hidden" value="{{ current_url }}" id="current-url">
+    {% if error %}
+    	{{ error }}
+    {% endif %}
+{% endblock %}
+
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'client/js/client_reg.js' %}"></script>
+{% endblock %}

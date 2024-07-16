@@ -1,6 +1,6 @@
 from django.db import models
 
-from app.utils.consts import VideoType, FromType, NationalityType
+from app.utils.consts import VideoType, FromType, NationalityType, IdentifyType
 
 
 class Video(models.Model):
@@ -47,3 +47,10 @@ class VideoStar(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def identify_label(self):
+        try:
+            label = IdentifyType[self.identify].label
+        except:
+            return False
+        return label

@@ -1,25 +1,4 @@
 {% extends 'common/base.html' %}
 {% block content %}
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="jumbotron">
-                <h2 class="display-4">会员注册</h2>
-                <div class="reg_wrap">
-                    <div class="form-group">
-                        <label for="login_user">用户名</label>
-                        <input type="email" class="form-control" id="login_user" name="login_user" aria-describedby="emailHelp">
-                    </div>
-                    <div class="form-group">
-                        <label for="login_pwd">密码</label>
-                        <input type="password" class="form-control" id="login_pwd" name="login_pwd">
-                    </div>
-                    <div class="form-group">
-                        <label for="login_pwd">确认密码</label>
-                        <input type="password" class="form-control" id="login_pwd_repeat" name="login_pwd_repeat">
-                    </div>
-                    <button type="submit" class="btn btn-primary do-reg">确认</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include 'common/base_reg.html' %}
 {% endblock %}

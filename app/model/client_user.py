@@ -2,6 +2,7 @@ from django.db import models
 
 from ..utils.user_services import UserService
 
+
 class ClientUser(models.Model):
     username = models.CharField(max_length=64, null=False, blank=False, unique=True)
     password = models.CharField(max_length=256, null=False, blank=False)
@@ -15,8 +16,8 @@ class ClientUser(models.Model):
     def __str__(self):
         return f'username:{self.username}, status:{self.status}'
 
-    @staticmethod
-    def add(cls, username, password, salt, avatar, gender, birthday, status):
+    @classmethod
+    def add(cls, username, password, avatar='', gender='', birthday=None, status=1):
         salt = UserService.gene_salt()
         return cls.objects.create(
             username=username,
@@ -27,9 +28,10 @@ class ClientUser(models.Model):
             birthday=birthday,
             status=status)
 
-    @staticmethod
-    def get_user(cls, username, password, salt):
+    @classmethod
+    def get_user(cls, username, password):
         try:
+            salt = cls.objects.get(username=username).salt
             user = cls.objects.get(username=username, password=UserService.gene_pwd(password, salt))
             return user
         except:

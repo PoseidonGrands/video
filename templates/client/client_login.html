@@ -1,0 +1,22 @@
+{% extends 'client/client_base.html' %}
+
+{% load static %}
+{% block css %}
+    {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+    {% include 'common/base_login.html' %}
+    {% if error %}
+    	<p>{{ error }}</p>
+    {% endif %}
+    <input type="hidden" value="{{ current_url }}" id="current-url">
+    <a href="{% url 'client_reg' %}">没有账号？点击注册</a>
+{% endblock %}
+
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'client/js/client_login.js' %}"></script>
+{% endblock %}

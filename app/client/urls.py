@@ -10,5 +10,6 @@ urlpatterns = [
     path('mine', mine, name='mine'),
     path('login', client_login, name='client_login'),
     path('reg', client_reg, name='client_reg'),
+    path('logout', client_logout, name='client_logout'),
 
 ]

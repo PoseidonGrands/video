@@ -43,16 +43,16 @@ def client_video_detail(request, video_id):
 
 def mine(request):
     if request.method == 'GET':
-        # 检查cookie是否存在
+        # 检查是否登录（cookie是否存在
         user = client_auth(request)
         if user:
-            return render(request, 'client/mine.html',{
+            return render(request, 'client/mine.html', {
                 'user': user
             })
         else:
             # 进入登录页面
             print('未登录')
             return redirect(reverse('client_login'))
-    return render(request, 'client/mine.html')
+
 
 
