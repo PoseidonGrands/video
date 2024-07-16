@@ -21,12 +21,12 @@ def comment_commit(request):
         video = Video.objects.filter(id=video_id).first()
         user = ClientUser.objects.filter(id=user_id).first()
 
-        _comment = UserComment.objects.create(content=comment, video=video, user=user)
+        _comment = UserComment.objects.create(content=comment, video=video, user=user, status=1)
         # 方案1
-        data = vars(_comment)
-        data.pop('_state')
+        # data = vars(_comment)
+        # data.pop('_state')
         # 方案2（模型中定义函数自定义要返回的值
-        # data = _comment.data()
+        data = _comment.data()
 
         return JsonResponse({'code': 200, 'msg': 'success', 'data': data})
 

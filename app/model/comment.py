@@ -28,6 +28,7 @@ class UserComment(models.Model):
             'content': self.content,
             'user_id': self.user.id,
             'video_id': self.video.id,
+            'username': self.user.username
         }
 
     def __str__(self):

@@ -28,13 +28,22 @@ let commentOps = {
                     csrfmiddlewaretoken: token
                 },
                 dataType: 'json',
-                success: function(res){
-                    console.log('res', res.id)
+                success: (res)=> {
+                    console.log('res', res)
+                    updateCommentList(res)
                 }
             })
         })
-    }
-
+    },
+}
+function updateCommentList(res){
+    console.log('uodate...')
+    let commentList = $('.comment-container .comment-list')
+    let newEle = `
+                        <p>${res.data.username}</p>
+                        <p>${res.data.content}</p>`
+    commentList.append(newEle)
+    console.log(newEle)
 }
 
 
