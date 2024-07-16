@@ -61,6 +61,6 @@ def client_reg(request):
 
 
 def client_logout(request):
-    resp = HttpResponse()
-    resp.set_cookie(COOKIE_NAME, '')
-    return redirect(reverse('client_login'))
+    ret = redirect(reverse('client_login'))
+    ret.delete_cookie(COOKIE_NAME)
+    return ret

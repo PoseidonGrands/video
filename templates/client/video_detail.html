@@ -21,7 +21,43 @@
         <p>{{ video.info }}</p>
         <p class="title">选集：</p>
         {% for sub in video_sub %}
-        	<span><a href="{{ sub.url }}" target="_blank">第{{ sub.number }}集 </a></span>
+            {% if user %}
+            	<span><a href="{{ sub.url }}" target="_blank">第{{ sub.number }}集 </a></span>
+            {% else %}
+                <span><a href="{% url 'client_login' %}">查看自制视频需要先登录</a></span>
+            {% endif %}
         {% endfor %}
+{#    评论区域#}
+    <div class="comment-container">
+        <div class="comment-area">
+            <p class="title">评论：</p>
+            {% if user %}
+            	<textarea class="comment-content" id=""></textarea>
+                <p><button class="comment-submit">提交</button></p>
+            {% else %}
+                <span><a href="{% url 'client_login' %}">请先登录再发表评论</a></span>
+            {% endif %}
+        </div>
+        <div class="comment-list">
+            <p class="title">评论列表</p>
+            {% for comment in comments %}
+            	<p>{{ comment.user.username }}</p>
+            	<p>{{ comment.content }}</p>
+            {% endfor %}
+
+        </div>
     </div>
+
+        <input id="video-id" type="hidden" value="{{ video.id }}">
+{#    未登录时user为空 #}
+        {% if user %}
+                <input id="user-id" type="hidden" value="{{ user.id }}">
+        {% endif %}
+        <input id="token" type="hidden" value="{{ token }}">
+    </div>
+{% endblock %}
+
+{% block js %}
+	{{ block.super }}
+    <script src="{% static 'client/js/client_comment.js' %}"></script>
 {% endblock %}

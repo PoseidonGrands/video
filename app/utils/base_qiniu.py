@@ -11,7 +11,7 @@ class QINIU(object):
 
     def put(self, name, path):
         """
-        将视频上传a
+        将视频上传七牛云
         :param name: 上传后的文件名
         :param path: 需要上传的文件的路径
         :return:
@@ -22,8 +22,8 @@ class QINIU(object):
         ret, info = put_file(token, name, path)
 
         if 'key' in ret:
-            print(ret)
-            print('key是：', ret["key"])
+            print(f'ret:{ret}')
+            print(f'key是：{ret["key"]}')
             ret_url = f'{self.space_url}/{ret["key"]}'
             return ret_url
         else:

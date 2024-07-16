@@ -1,9 +1,6 @@
-from django import http
 from django.shortcuts import render, redirect, reverse
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.models import *
-from django.contrib.auth import *
 
+from app.model.comment import UserComment
 from app.model.video import Video, VideoSub, VideoStar
 from app.utils.consts import FromType
 from app.utils.permission import client_auth
@@ -34,10 +31,18 @@ def client_video_detail(request, video_id):
     video = Video.objects.filter(id=video_id).first()
     video_sub = VideoSub.objects.filter(video_id=video_id)
     video_star = VideoStar.objects.filter(video_id=video_id)
+
+    user = client_auth(request)
+
+    comments = UserComment.objects.filter(status=1)
+
     return render(request, 'client/video_detail.html', {
         'video': video,
         'video_sub': video_sub,
-        'video_star': video_star
+        'video_star': video_star,
+        'user': user,
+        'comments': comments,
+        'token': request.META['CSRF_COOKIE']
     })
 
 

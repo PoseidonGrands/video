@@ -32,13 +32,17 @@ header{
 footer{
     position: fixed;
 
-    padding-bottom: 0.5rem;
     bottom: 0;
     text-align: center;
 }
 
 .content{
     width: 100%;
+
+    padding-bottom: 4rem;
+
+    overflow-y: auto;
+
     zoom: 1;
 }
 

@@ -18,5 +18,28 @@
     .title{
         font-weight: bold;
     }
+
+
+}
+
+.comment-area{
+    width: 100%;
+
+    margin: 0 auto;
+    .comment-content{
+        display: block;
+        width: 95%;
+
+        margin: 0 auto;
+
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+    }
+    .comment-submit{
+        margin: 0.2rem 0 0 2.5%;
+        padding: 0.2rem;
+
+        border: 1px solid #cccccc;
+    }
 }
 
