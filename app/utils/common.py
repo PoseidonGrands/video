@@ -71,6 +71,7 @@ def handle_video(upload_file, video_id, number):
 def remove_video_local(videos):
     """将路径的视频全部移除"""
     for video in videos:
+        print(f'video:{video}')
         if os.path.exists(video):
             os.remove(video)
 
